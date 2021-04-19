@@ -1,0 +1,4 @@
+br\edu\uniacademia\enade\model\Usuario_.class
+br\edu\uniacademia\enade\model\Questao_.class
+br\edu\uniacademia\enade\util\PersistenceUtil.class
+br\edu\uniacademia\enade\JAXRSConfiguration.class
