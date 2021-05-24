@@ -34,7 +34,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "TipoUsuario.findAll", query = "SELECT t FROM TipoUsuario t"),
     @NamedQuery(name = "TipoUsuario.findByIdTipoUsuario", query = "SELECT t FROM TipoUsuario t WHERE t.idTipoUsuario = :idTipoUsuario"),
     @NamedQuery(name = "TipoUsuario.findByNomeTipoUsuario", query = "SELECT t FROM TipoUsuario t WHERE t.nomeTipoUsuario = :nomeTipoUsuario")})
-public class TipoUsuario implements BaseEnt {
+public class TipoUsuario implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -111,10 +111,4 @@ public class TipoUsuario implements BaseEnt {
     public String toString() {
         return "br.edu.uniacademia.enade.model.TipoUsuario[ idTipoUsuario=" + idTipoUsuario + " ]";
     }
-
-    @Override
-    public Serializable getId() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
 }

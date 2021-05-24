@@ -39,7 +39,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Prova.findAll", query = "SELECT p FROM Prova p"),
     @NamedQuery(name = "Prova.findByIdProva", query = "SELECT p FROM Prova p WHERE p.idProva = :idProva"),
     @NamedQuery(name = "Prova.findByDataProva", query = "SELECT p FROM Prova p WHERE p.dataProva = :dataProva")})
-public class Prova implements BaseEnt {
+public class Prova implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -129,11 +129,6 @@ public class Prova implements BaseEnt {
     @Override
     public String toString() {
         return "br.edu.uniacademia.enade.model.Prova[ idProva=" + idProva + " ]";
-    }
-
-    @Override
-    public Serializable getId() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

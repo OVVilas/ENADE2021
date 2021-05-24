@@ -21,23 +21,25 @@ import javax.inject.Named;
 @Named
 @ViewScoped
 public class TipoUsuarioController implements Serializable{
-    
+
     TipoUsuario tipoUsuario = new TipoUsuario();
-    List<TipoUsuario> tipoUsuarios = new ArrayList<TipoUsuario>();
-    
-    public TipoUsuarioController(){
-        tipoUsuarios = TipoUsuarioDAO.getInstance().buscarTodos(TipoUsuario.class);
+    List<TipoUsuario> tipoUsuarios = new ArrayList<>();
+
+    public TipoUsuarioController() {
+        tipoUsuarios = TipoUsuarioDAO.getInstance().buscarTodos();
         tipoUsuario = new TipoUsuario();
     }
-    
-    public void gravar(TipoUsuario tipoUsuario){
-        TipoUsuarioDAO.getInstance().persistir(tipoUsuario);
-        tipoUsuarios = TipoUsuarioDAO.getInstance().buscarTodos(TipoUsuario.class);
+
+    public void gravar() {
+        TipoUsuarioDAO.getInstance().merge(tipoUsuario);
+        tipoUsuarios = TipoUsuarioDAO.getInstance().buscarTodos();
+        tipoUsuario = new TipoUsuario();
     }
-    
-    public void remover(TipoUsuario tipoUsuario){
-        TipoUsuarioDAO.getInstance().remover(TipoUsuario.class, tipoUsuario.getIdTipoUsuario());
-        tipoUsuarios = TipoUsuarioDAO.getInstance().buscarTodos(TipoUsuario.class);
+
+    public void remover(ActionEvent actionEvent) {
+        TipoUsuarioDAO.getInstance().remover(tipoUsuario.getIdTipoUsuario());
+        tipoUsuarios = TipoUsuarioDAO.getInstance().buscarTodos();
+        tipoUsuario = new TipoUsuario();
     }
 
     public TipoUsuario getTipoUsuario() {
@@ -56,5 +58,4 @@ public class TipoUsuarioController implements Serializable{
         this.tipoUsuarios = tipoUsuarios;
     }
 
-    
 }

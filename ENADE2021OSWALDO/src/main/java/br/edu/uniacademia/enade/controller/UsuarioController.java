@@ -21,23 +21,26 @@ import javax.inject.Named;
 @Named
 @ViewScoped
 public class UsuarioController implements Serializable{
+    
+
     Usuario usuario = new Usuario();
     List<Usuario> usuarios = new ArrayList<>();
 
     public UsuarioController() {
-        usuarios = UsuarioDAO.getInstance().buscarTodos(Usuario.class);
+        usuarios = UsuarioDAO.getInstance().buscarTodos();
         usuario = new Usuario();
     }
 
-    public void gravar(ActionEvent actionEvent) {
-        UsuarioDAO.getInstance().persistir(usuario);
-        usuarios = UsuarioDAO.getInstance().buscarTodos(Usuario.class);
+    public void gravar() {
+        UsuarioDAO.getInstance().merge(usuario);
+        usuarios = UsuarioDAO.getInstance().buscarTodos();
         usuario = new Usuario();
     }
 
-    public void remover(Usuario usuario){
-        UsuarioDAO.getInstance().remover(Usuario.class, usuario.getIdUsuario());
-        usuarios = UsuarioDAO.getInstance().buscarTodos(Usuario.class);
+    public void remover(ActionEvent actionEvent) {
+        UsuarioDAO.getInstance().remover(usuario.getIdUsuario());
+        usuarios = UsuarioDAO.getInstance().buscarTodos();
+        usuario = new Usuario();
     }
 
     public Usuario getUsuario() {

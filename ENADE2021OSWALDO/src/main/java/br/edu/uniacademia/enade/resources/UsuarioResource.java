@@ -16,7 +16,6 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.core.Response;
 
 /**
  *
@@ -24,11 +23,12 @@ import javax.ws.rs.core.Response;
  */
 @Path("usuario")
 public class UsuarioResource {
+
     @GET
     @Produces("application/json; charset=UTF-8")
     @Path("/todosUsuario")
     public List<Usuario> TodosUsuarios() {
-        List<Usuario> usuarios = UsuarioDAO.getInstance().buscarTodos(Usuario.class);
+        List<Usuario> usuarios = UsuarioDAO.getInstance().buscarTodos();
         return usuarios;
     }
 
@@ -36,7 +36,7 @@ public class UsuarioResource {
     @Produces("application/json; charset=UTF-8")
     @Path("/getUsuario/{id}")
     public Usuario GetUsuario(@PathParam("id") Integer id) {
-        return UsuarioDAO.getInstance().buscar(Usuario.class, id);
+        return UsuarioDAO.getInstance().buscar(id);
     }
 
     @DELETE
@@ -44,7 +44,7 @@ public class UsuarioResource {
     @Path("/excluir/{idUsuario}")
     public String Excluir(@PathParam("idUsuario") Integer idUsuario) {
         try {
-            UsuarioDAO.getInstance().remover(Usuario.class, idUsuario);
+            UsuarioDAO.getInstance().remover(idUsuario);
             return "Registro excluído com sucesso";
         } catch (Exception e) {
             return "Erro ao excluir o registro: " + e.getMessage();
@@ -56,7 +56,7 @@ public class UsuarioResource {
     @Path("/excluirTodos")
     public String ExcluirTodos() {
         try {
-            UsuarioDAO.getInstance().removeAll(Usuario.class);
+            UsuarioDAO.getInstance().removerAll();
             return "Todos os registros excluídos com sucesso";
         } catch (Exception e) {
             return "Erro ao excluir o registro: " + e.getMessage();
@@ -66,45 +66,25 @@ public class UsuarioResource {
     @POST
     @Consumes("application/json; charset=UTF-8")
     @Produces("application/json; charset=UTF-8")
-    @Path("/cadastrarUsuario")
-    public String Cadastrar(Usuario usuario){
-        Usuario us = new Usuario();
-        try{
-            us.setIdUsuario((Integer) usuario.getId());
-            us.setNome(usuario.getNome());
-            us.setEmail(usuario.getNome());
-            us.setSenha(usuario.getSenha());
-            us.setTipoUsuarioidTipoUsuario(usuario.getTipoUsuarioidTipoUsuario());
-            UsuarioDAO.getInstance().persistir(usuario);
-            return "Cadastro salvo";
-        }catch (Exception e){
-            return "Erro ao realizar o cadastro: " + e.getMessage();
-        }
-    }
-    
-    @PUT
-    @Consumes("application/json; charset=UTF-8")
-    @Produces("application/json; charset=UTF-8")
-    @Path("/alterarUsuario")
-    public String Alterar(Usuario usuario){
-        Usuario us = new Usuario();
-        try{
-            us.setIdUsuario((Integer) usuario.getId());
-            us.setNome(usuario.getNome());
-            us.setEmail(usuario.getNome());
-            us.setSenha(usuario.getSenha());
-            us.setTipoUsuarioidTipoUsuario(usuario.getTipoUsuarioidTipoUsuario());
-            UsuarioDAO.getInstance().persistir(usuario);
-            return "Registro salvo";
-        }catch (Exception e){
-            return "Erro ao realizar o cadastro: " + e.getMessage();
+    @Path("/cadastrar")
+    public String Cadastrar(Usuario usuario) {
+        try {
+            UsuarioDAO.getInstance().merge(usuario);
+            return "Registro cadastrado com sucesso";
+        } catch (Exception e) {
+            return "Erro ao cadastrar um registro: " + e.getMessage();
         }
     }
 
-    @GET
-    public Response ping() {
-        return Response
-                .ok("ping")
-                .build();
+    @PUT
+    @Consumes("application/json; charset=UTF-8")
+    @Produces("application/json; charset=UTF-8")
+    @Path("/alterar")
+    public String Alterar(Usuario usuario) {
+        try {
+            return UsuarioDAO.getInstance().merge(usuario).toString();
+        } catch (Exception e) {
+            return "Erro ao atualizar um registro: " + e.getMessage();
+        }
     }
 }

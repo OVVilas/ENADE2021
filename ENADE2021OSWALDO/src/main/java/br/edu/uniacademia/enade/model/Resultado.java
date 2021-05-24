@@ -30,7 +30,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Resultado.findAll", query = "SELECT r FROM Resultado r"),
     @NamedQuery(name = "Resultado.findByIdResultado", query = "SELECT r FROM Resultado r WHERE r.idResultado = :idResultado"),
     @NamedQuery(name = "Resultado.findByValorObtido", query = "SELECT r FROM Resultado r WHERE r.valorObtido = :valorObtido")})
-public class Resultado implements BaseEnt {
+public class Resultado implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -110,11 +110,5 @@ public class Resultado implements BaseEnt {
     @Override
     public String toString() {
         return "br.edu.uniacademia.enade.model.Resultado[ idResultado=" + idResultado + " ]";
-    }
-
-    @Override
-    public Serializable getId() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
+    } 
 }

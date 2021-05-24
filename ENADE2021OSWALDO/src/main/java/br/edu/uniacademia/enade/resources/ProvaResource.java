@@ -16,7 +16,6 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.core.Response;
 
 /**
  *
@@ -29,7 +28,7 @@ public class ProvaResource {
     @Produces("application/json; charset=UTF-8")
     @Path("/todosProva")
     public List<Prova> TodasProvas() {
-        List<Prova> provas = ProvaDAO.getInstance().buscarTodos(Prova.class);
+        List<Prova> provas = ProvaDAO.getInstance().buscarTodos();
         return provas;
     }
 
@@ -37,7 +36,7 @@ public class ProvaResource {
     @Produces("application/json; charset=UTF-8")
     @Path("/getProva/{idProva}")
     public Prova GetProva(@PathParam("idProva") Integer idProva) {
-        return (Prova) ProvaDAO.getInstance().buscar(Prova.class, idProva);
+        return (Prova) ProvaDAO.getInstance().buscar(idProva);
     }
 
     @DELETE
@@ -45,7 +44,8 @@ public class ProvaResource {
     @Path("/excluir/{idProva}")
     public String Excluir(@PathParam("idProva") Integer idProva) {
         try {
-            ProvaDAO.getInstance().remover(Prova.class, idProva);
+            Prova prova = new Prova(idProva, null);
+            ProvaDAO.getInstance().remover(prova.getIdProva());
             return "Registro excluído com sucesso";
         } catch (Exception e) {
             return "Erro ao excluir o registro: " + e.getMessage();
@@ -54,10 +54,10 @@ public class ProvaResource {
 
     @DELETE
     @Produces("application/json; charset=UTF-8")
-    @Path("/excluirTodos")
+    @Path("/excluirTodas")
     public String ExcluirTodas() {
         try {
-            ProvaDAO.getInstance().removeAll(Prova.class);
+            ProvaDAO.getInstance().removerAll();
             return "Todos os registros excluídos com sucesso";
         } catch (Exception e) {
             return "Erro ao excluir o registro: " + e.getMessage();
@@ -69,13 +69,13 @@ public class ProvaResource {
     @Produces("application/json; charset=UTF-8")
     @Path("/cadastrar")
     public String Cadastrar(Prova prova) {
-        Prova prov = new Prova();
+        Prova p = new Prova();
         try {
-            prov.setIdProva(prova.getIdProva());
-            prov.setDataProva(prova.getDataProva());
-            prov.setQuestaoList(prova.getQuestaoList());
-            prov.setResultadoList(prova.getResultadoList());
-            ProvaDAO.getInstance().persistir(prov);
+            p.setIdProva(prova.getIdProva());
+            p.setDataProva(prova.getDataProva());
+            p.setQuestaoList(prova.getQuestaoList());
+            p.setResultadoList(prova.getResultadoList());
+            ProvaDAO.getInstance().merge(p);
             return "Registro cadastrado com sucesso";
         } catch (Exception e) {
             return "Erro ao cadastrar um registro: " + e.getMessage();
@@ -87,22 +87,15 @@ public class ProvaResource {
     @Produces("application/json; charset=UTF-8")
     @Path("/alterar")
     public String Alterar(Prova prova) {
-        Prova prov = new Prova();
+        Prova p = new Prova();
         try {
-            prov.setIdProva(prova.getIdProva());
-            prov.setDataProva(prova.getDataProva());
-            prov.setQuestaoList(prova.getQuestaoList());
-            prov.setResultadoList(prova.getResultadoList());
-            return ProvaDAO.getInstance().persistir(prov).toString();
+            p.setIdProva(prova.getIdProva());
+            p.setDataProva(prova.getDataProva());
+            p.setQuestaoList(prova.getQuestaoList());
+            p.setResultadoList(prova.getResultadoList());
+            return ProvaDAO.getInstance().merge(p).toString();
         } catch (Exception e) {
             return "Erro ao atualizar um registro: " + e.getMessage();
         }
-    }
-
-    @GET
-    public Response ping() {
-        return Response
-                .ok("ping")
-                .build();
     }
 }

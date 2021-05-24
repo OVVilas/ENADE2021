@@ -11,14 +11,19 @@ import br.edu.uniacademia.enade.model.Usuario;
  *
  * @author Oswaldo
  */
-public class UsuarioDAO extends GenericDAO<Usuario> {
-    
-    public static UsuarioDAO usuarioDAO;
-    
-    public static UsuarioDAO getInstance(){
-        if(usuarioDAO == null){
-            usuarioDAO = new UsuarioDAO();
+public class UsuarioDAO extends GenericDAO<Usuario, Integer> {
+
+    public static UsuarioDAO UsuarioDAO;
+
+    public UsuarioDAO() {
+        super(Usuario.class);
+    }
+
+    public static UsuarioDAO getInstance() {
+        if (UsuarioDAO == null) {
+            UsuarioDAO = new UsuarioDAO();
         }
-        return usuarioDAO;
-    }   
+        return UsuarioDAO;
+    }
+
 }

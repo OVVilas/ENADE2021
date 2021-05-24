@@ -26,18 +26,20 @@ public class ProvaController implements Serializable{
     List<Prova> provas = new ArrayList<>();
 
     public ProvaController() {
-        provas = ProvaDAO.getInstance().buscarTodos(Prova.class);
+        provas = ProvaDAO.getInstance().buscarTodos();
         prova = new Prova();
     }
 
-    public void gravar(ActionEvent actionEvent) {
-        ProvaDAO.getInstance().persistir(prova);
-        provas = ProvaDAO.getInstance().buscarTodos(Prova.class);
+    public void gravar() {
+        ProvaDAO.getInstance().merge(prova);
+        provas = ProvaDAO.getInstance().buscarTodos();
+        prova = new Prova();
     }
 
     public void remover(ActionEvent actionEvent) {
-        ProvaDAO.getInstance().remover(Prova.class, prova.getIdProva());
-        provas = ProvaDAO.getInstance().buscarTodos(Prova.class);
+        ProvaDAO.getInstance().remover(prova.getIdProva());
+        provas = ProvaDAO.getInstance().buscarTodos();
+        prova = new Prova();
     }
 
     public Prova getProva() {

@@ -26,18 +26,20 @@ public class QuestaoController implements Serializable{
     List<Questao> questoes = new ArrayList<>();
 
     public QuestaoController() {
-        questoes = QuestaoDAO.getInstance().buscarTodos(Questao.class);
+        questoes = QuestaoDAO.getInstance().buscarTodos();
         questao = new Questao();
     }
 
-    public void gravar(ActionEvent actionEvent) {
-        QuestaoDAO.getInstance().persistir(questao);
-        questoes = QuestaoDAO.getInstance().buscarTodos(Questao.class);
+    public void gravar() {
+        QuestaoDAO.getInstance().merge(questao);
+        questoes = QuestaoDAO.getInstance().buscarTodos();
+        questao = new Questao();
     }
 
     public void remover(ActionEvent actionEvent) {
-        QuestaoDAO.getInstance().remover(Questao.class, questao.getIdQuestao());
-        questoes = QuestaoDAO.getInstance().buscarTodos(Questao.class);
+        QuestaoDAO.getInstance().remover(questao.getIdQuestao());
+        questoes = QuestaoDAO.getInstance().buscarTodos();
+        questao = new Questao();
     }
 
     public Questao getQuestao() {
@@ -55,5 +57,4 @@ public class QuestaoController implements Serializable{
     public void setQuestoes(List<Questao> questoes) {
         this.questoes = questoes;
     }
-
 }

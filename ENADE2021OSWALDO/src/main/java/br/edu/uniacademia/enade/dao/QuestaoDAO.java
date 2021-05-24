@@ -11,14 +11,19 @@ import br.edu.uniacademia.enade.model.Questao;
  *
  * @author Oswaldo
  */
-public class QuestaoDAO extends GenericDAO<Questao>{
-    
-public static QuestaoDAO QuestaoDAO;
-    
-    public static QuestaoDAO getInstance(){
-        if(QuestaoDAO == null){
-            QuestaoDAO = new QuestaoDAO();
+public class QuestaoDAO extends GenericDAO<Questao, Integer> {
+
+    public static QuestaoDAO questaoDAO;
+
+    public QuestaoDAO() {
+        super(Questao.class);
+    }
+
+    public static QuestaoDAO getInstance() {
+        if (questaoDAO == null) {
+            questaoDAO = new QuestaoDAO();
         }
-        return QuestaoDAO;
-    }   
+        return questaoDAO;
+    }
+
 }

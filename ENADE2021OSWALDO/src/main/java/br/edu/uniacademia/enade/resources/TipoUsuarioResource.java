@@ -24,11 +24,12 @@ import javax.ws.rs.core.Response;
  */
 @Path("tipousuario")
 public class TipoUsuarioResource {
+
     @GET
     @Produces("application/json; charset=UTF-8")
     @Path("/todosTipoUsuario")
-    public List<TipoUsuario> TodosTipoUsuario(){
-        List<TipoUsuario> tipoUsuario = TipoUsuarioDAO.getInstance().buscarTodos(TipoUsuario.class); 
+    public List<TipoUsuario> TodosTipoUsuario() {
+        List<TipoUsuario> tipoUsuario = TipoUsuarioDAO.getInstance().buscarTodos();
         return tipoUsuario;
     }
 
@@ -36,15 +37,15 @@ public class TipoUsuarioResource {
     @Produces("application/json; charset=UTF-8")
     @Path("/getTipoUsuario/{id}")
     public TipoUsuario GetTipoUsuario(@PathParam("id") Integer id) {
-        return TipoUsuarioDAO.getInstance().buscar(TipoUsuario.class, id);
+        return TipoUsuarioDAO.getInstance().buscar(id);
     }
 
     @DELETE
     @Produces("application/json; charset=UTF-8")
     @Path("/excluir/{codigo}")
-    public String Excluir(@PathParam("codigo") Integer id) {
+    public String Excluir(@PathParam("codigo") Integer codigo) {
         try {
-            TipoUsuarioDAO.getInstance().remover(TipoUsuario.class, id);
+            TipoUsuarioDAO.getInstance().remover(codigo);
             return "Registro excluído com sucesso";
         } catch (Exception e) {
             return "Erro ao excluir o registro: " + e.getMessage();
@@ -55,10 +56,10 @@ public class TipoUsuarioResource {
     @Produces("application/json; charset=UTF-8")
     @Path("/excluirTodos")
     public String ExcluirTodos() {
-        try{
-            TipoUsuarioDAO.getInstance().removeAll(TipoUsuario.class);
+        try {
+            TipoUsuarioDAO.getInstance().removerAll();
             return "Todos os registros excluídos com sucesso";
-        }catch (Exception e) {
+        } catch (Exception e) {
             return "Erro ao excluir o registro: " + e.getMessage();
         }
     }
@@ -72,7 +73,7 @@ public class TipoUsuarioResource {
         try {
             tu.setIdTipoUsuario(tipoUsuario.getIdTipoUsuario());
             tu.setNomeTipoUsuario(tipoUsuario.getNomeTipoUsuario());
-            TipoUsuarioDAO.getInstance().persistir(tu);
+            TipoUsuarioDAO.getInstance().merge(tu);
             return "Registro cadastrado com sucesso";
         } catch (Exception e) {
             return "Erro ao cadastrar um registro: " + e.getMessage();
@@ -88,17 +89,9 @@ public class TipoUsuarioResource {
         try {
             tu.setIdTipoUsuario(tipoUsuario.getIdTipoUsuario());
             tu.setNomeTipoUsuario(tipoUsuario.getNomeTipoUsuario());
-            TipoUsuarioDAO.getInstance().persistir(tipoUsuario);
-            return "Registro salvo";
+            return TipoUsuarioDAO.getInstance().merge(tu).toString();
         } catch (Exception e) {
             return "Erro ao atualizar um registro: " + e.getMessage();
         }
-    }
-
-    @GET
-    public Response ping() {
-        return Response
-                .ok("ping")
-                .build();
     }
 }

@@ -5,13 +5,11 @@
  */
 package br.edu.uniacademia.enade.dao;
 
-import br.edu.uniacademia.enade.model.BaseEnt;
 import br.edu.uniacademia.enade.util.PersistenceUtil;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
-import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 
@@ -20,67 +18,68 @@ import javax.persistence.criteria.CriteriaQuery;
  * @author Oswaldo
  * @param <T>
  */
-public abstract class GenericDAO<T extends BaseEnt> {
-    private static EntityManager entityManager = getEM();
-    
-    public static EntityManager getEM(){
-        return PersistenceUtil.getEntityManager();
+public abstract class GenericDAO<T, I extends Serializable> {
+
+    protected EntityManager entityManager = PersistenceUtil.getEntityManager();
+   
+    private Class<T> persistedClass;
+
+    protected GenericDAO() {
     }
-    
-    public static GenericDAO genericDAO;
-    
-    
-    protected GenericDAO(){
+
+    protected GenericDAO(Class<T> persistedClass) {
+        this();
+        this.persistedClass = persistedClass;
     }
-    
-    public T buscar(Class<T> t, int id){
-        return entityManager.find(t, id);
-    }
-    
-    public List<T> buscarTodos(Class<T> t){
+
+    public List<T> buscarTodos() {
         CriteriaBuilder builder = entityManager.getCriteriaBuilder();
-        CriteriaQuery<T> query = builder.createQuery(t);
-        query.from(t);
+        CriteriaQuery<T> query = builder.createQuery(persistedClass);
+        query.from(persistedClass);
         return entityManager.createQuery(query).getResultList();
     }
-    
-    public void remover(Class<T> classe, int id){
-        T t = buscar(classe, id);
-        entityManager.getTransaction().begin();
-        if(!entityManager.contains(t)){
-            t = entityManager.merge(t);
-        }
-        entityManager.remove(t);
-        entityManager.getTransaction().commit();
+
+    public T buscar(I id) {
+        return entityManager.find(persistedClass, id);
     }
-    
-    public T persistir(T t){
-        entityManager.getTransaction().begin();
-        try{
-            t = entityManager.merge(t);
-            entityManager.getTransaction().commit();
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-        return t;
-    }
-    
-    public T atualizar(T t) {
-        entityManager.getTransaction().begin();
+
+    public T merge(T entity) {
+        EntityTransaction t = entityManager.getTransaction();
         try {
-            t = entityManager.merge(t);
-            entityManager.getTransaction().commit();
+            t.begin();
+            entity = entityManager.merge(entity);
+            entityManager.flush();
+            t.commit();
         } catch (Exception e) {
-            entityManager.getTransaction().rollback();
+            t.rollback();
         }
-        return t;
+        return entity;
     }
-    
-    public void removeAll(Class<T> t){
-        entityManager.getTransaction().begin();
-        Query query = entityManager.createQuery("delete from T");
-        query.setParameter("T", t);
-        query.executeUpdate();
-        entityManager.getTransaction().commit();
+
+    public void remover(I id) {
+        T entity = buscar(id);
+        EntityTransaction t = entityManager.getTransaction();
+        try {
+            t.begin();
+            T mergedEntity = entityManager.merge(entity);
+            entityManager.remove(mergedEntity);
+            entityManager.flush();
+            t.commit();
+        } catch (Exception e) {
+            t.rollback();
+        }
     }
+
+    public void removerAll() {
+        EntityTransaction t = entityManager.getTransaction();
+        try {
+            t.begin();
+            entityManager.createQuery("DELETE FROM " + persistedClass.getSimpleName()).executeUpdate();
+            entityManager.flush();
+            t.commit();
+        } catch (Exception e) {
+            t.rollback();
+        }
+    }
+
 }

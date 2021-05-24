@@ -16,7 +16,6 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.core.Response;
 
 /**
  *
@@ -29,7 +28,7 @@ public class QuestaoResource {
     @Produces("application/json; charset=UTF-8")
     @Path("/todosQuestao")
     public List<Questao> TodasQuestoes() {
-        List<Questao> questoes = QuestaoDAO.getInstance().buscarTodos(Questao.class);
+        List<Questao> questoes = QuestaoDAO.getInstance().buscarTodos();
         return questoes;
     }
 
@@ -37,7 +36,7 @@ public class QuestaoResource {
     @Produces("application/json; charset=UTF-8")
     @Path("/getQuestao/{idQuestao}")
     public Questao GetQuestao(@PathParam("idQuestao") Integer idQuestao) {
-        return QuestaoDAO.getInstance().buscar(Questao.class, idQuestao);
+        return QuestaoDAO.getInstance().buscar(idQuestao);
     }
 
     @DELETE
@@ -46,7 +45,7 @@ public class QuestaoResource {
     public String Excluir(@PathParam("idQuestao") Integer idQuestao) {
         try {
             Questao questao = new Questao(idQuestao, null);
-            QuestaoDAO.getInstance().remover(Questao.class, questao.getIdQuestao());
+            QuestaoDAO.getInstance().remover(questao.getIdQuestao());
             return "Registro excluído com sucesso";
         } catch (Exception e) {
             return "Erro ao excluir o registro: " + e.getMessage();
@@ -55,70 +54,38 @@ public class QuestaoResource {
 
     @DELETE
     @Produces("application/json; charset=UTF-8")
-    @Path("/excluirTodos")
+    @Path("/excluirTodas")
     public String ExcluirTodas() {
         try {
-            QuestaoDAO.getInstance().removeAll(Questao.class);
-            return "Todos os registros excluídos com sucesso:";
+            QuestaoDAO.getInstance().removerAll();
+            return "Todos os registros excluídos com sucesso";
         } catch (Exception e) {
-            return "Erro ao excluir o registro " + e.getMessage();
+            return "Erro ao excluir o registro: " + e.getMessage();
         }
     }
 
     @POST
     @Consumes("application/json; charset=UTF-8")
     @Produces("application/json; charset=UTF-8")
-    @Path("/cadastrarQuestao")
-    public String Cadastrar(Questao questao){
-        Questao quest = new Questao();
-        try{
-            quest.setIdQuestao(questao.getIdQuestao());
-            quest.setAlternativaA(questao.getAlternativaA());
-            quest.setAlternativaB(questao.getAlternativaB());
-            quest.setAlternativaC(questao.getAlternativaC());
-            quest.setAlternativaD(questao.getAlternativaD());
-            quest.setAlternativaE(questao.getAlternativaE());
-            quest.setDescricaoQuestao(questao.getDescricaoQuestao());
-            quest.setQuestaoCorreta(questao.getQuestaoCorreta());
-            quest.setEstadoQuestao(questao.getEstadoQuestao());
-            quest.setTipoQuestaoidTipoQuestao(questao.getTipoQuestaoidTipoQuestao());
-            quest.setProvaList(questao.getProvaList());
-            QuestaoDAO.getInstance().persistir(quest);
+    @Path("/cadastrar")
+    public String Cadastrar(Questao questao) {
+        try {
+            QuestaoDAO.getInstance().merge(questao);
             return "Registro cadastrado com sucesso";
-        }catch (Exception e){
-            return "Erro ao atualizar um registro: " + e.getMessage();
-        }
-    }
-    
-    @PUT
-    @Consumes("application/json; charset=UTF-8")
-    @Produces("application/json; charset=UTF-8")
-    @Path("/alterarQuestao")
-    public String Alterar(Questao questao){
-        Questao quest = new Questao();
-        try{
-            quest.setIdQuestao(questao.getIdQuestao());
-            quest.setAlternativaA(questao.getAlternativaA());
-            quest.setAlternativaB(questao.getAlternativaB());
-            quest.setAlternativaC(questao.getAlternativaC());
-            quest.setAlternativaD(questao.getAlternativaD());
-            quest.setAlternativaE(questao.getAlternativaE());
-            quest.setDescricaoQuestao(questao.getDescricaoQuestao());
-            quest.setQuestaoCorreta(questao.getQuestaoCorreta());
-            quest.setEstadoQuestao(questao.getEstadoQuestao());
-            quest.setTipoQuestaoidTipoQuestao(questao.getTipoQuestaoidTipoQuestao());
-            quest.setProvaList(questao.getProvaList());
-            QuestaoDAO.getInstance().persistir(quest);
-            return "Registro alterado com sucesso";
-        }catch (Exception e){
-            return "Erro ao atualizar um registro: " + e.getMessage();
+        } catch (Exception e) {
+            return "Erro ao cadastrar um registro: " + e.getMessage();
         }
     }
 
-    @GET
-    public Response ping() {
-        return Response
-                .ok("ping")
-                .build();
+    @PUT
+    @Consumes("application/json; charset=UTF-8")
+    @Produces("application/json; charset=UTF-8")
+    @Path("/alterar")
+    public String Alterar(Questao questao) {
+        try {
+            return QuestaoDAO.getInstance().merge(questao).toString();
+        } catch (Exception e) {
+            return "Erro ao atualizar um registro: " + e.getMessage();
+        }
     }
 }

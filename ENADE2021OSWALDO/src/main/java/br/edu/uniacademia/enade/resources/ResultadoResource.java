@@ -16,7 +16,6 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.core.Response;
 
 /**
  *
@@ -29,7 +28,7 @@ public class ResultadoResource {
     @Produces("application/json; charset=UTF-8")
     @Path("/todosResultado")
     public List<Resultado> TodosResultados() {
-        List<Resultado> resultados = ResultadoDAO.getInstance().buscarTodos(Resultado.class);
+        List<Resultado> resultados = ResultadoDAO.getInstance().buscarTodos();
         return resultados;
     }
 
@@ -37,7 +36,7 @@ public class ResultadoResource {
     @Produces("application/json; charset=UTF-8")
     @Path("/getResultado/{idResultado}")
     public Resultado GetResultado(@PathParam("idResultado") Integer idResultado) {
-        return ResultadoDAO.getInstance().buscar(Resultado.class, idResultado);
+        return ResultadoDAO.getInstance().buscar(idResultado);
     }
 
     @DELETE
@@ -45,7 +44,7 @@ public class ResultadoResource {
     @Path("/excluir/{idResultado}")
     public String Excluir(@PathParam("idResultado") Integer idResultado) {
         try {
-            ResultadoDAO.getInstance().remover(Resultado.class, idResultado);
+            ResultadoDAO.getInstance().remover(idResultado);
             return "Registro excluído com sucesso";
         } catch (Exception e) {
             return "Erro ao excluir o registro: " + e.getMessage();
@@ -57,7 +56,7 @@ public class ResultadoResource {
     @Path("/excluirTodos")
     public String ExcluirTodos() {
         try {
-            ResultadoDAO.getInstance().removeAll(Resultado.class);
+            ResultadoDAO.getInstance().removerAll();
             return "Todos os registros excluídos com sucesso";
         } catch (Exception e) {
             return "Erro ao excluir o registro: " + e.getMessage();
@@ -75,7 +74,7 @@ public class ResultadoResource {
             r.setValorObtido(resultado.getValorObtido());
             r.setProvaidProva(resultado.getProvaidProva());
             r.setUsuarioidUsuario(resultado.getUsuarioidUsuario());
-            ResultadoDAO.getInstance().persistir(r);
+            ResultadoDAO.getInstance().merge(r);
             return "Registro cadastrado com sucesso";
         } catch (Exception e) {
             return "Erro ao cadastrar um registro: " + e.getMessage();
@@ -93,17 +92,9 @@ public class ResultadoResource {
             r.setValorObtido(resultado.getValorObtido());
             r.setProvaidProva(resultado.getProvaidProva());
             r.setUsuarioidUsuario(resultado.getUsuarioidUsuario());
-            return ResultadoDAO.getInstance().persistir(r).toString();
+            return ResultadoDAO.getInstance().merge(r).toString();
         } catch (Exception e) {
             return "Erro ao atualizar um registro: " + e.getMessage();
         }
     }
-
-    @GET
-    public Response ping() {
-        return Response
-                .ok("ping")
-                .build();
-    }
 }
-

@@ -7,6 +7,7 @@ package br.edu.uniacademia.enade.controller;
 
 import br.edu.uniacademia.enade.dao.TipoQuestaoDAO;
 import br.edu.uniacademia.enade.model.TipoQuestao;
+import java.awt.event.ActionEvent;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,22 +22,25 @@ import javax.inject.Named;
 @Named
 @ViewScoped
 public class TipoQuestaoController implements Serializable{
-     TipoQuestao tipoQuestao = new TipoQuestao();
-    List<TipoQuestao> tipoQuestoes = new ArrayList<TipoQuestao>();
-    
-    public TipoQuestaoController(){
-        tipoQuestoes = TipoQuestaoDAO.getInstance().buscarTodos(TipoQuestao.class);
+
+    TipoQuestao tipoQuestao = new TipoQuestao();
+    List<TipoQuestao> tipoQuestoes = new ArrayList<>();
+
+    public TipoQuestaoController() {
+        tipoQuestoes = TipoQuestaoDAO.getInstance().buscarTodos();
         tipoQuestao = new TipoQuestao();
     }
-    
-    public void gravar(TipoQuestao tipoQuestao){
-        TipoQuestaoDAO.getInstance().persistir(tipoQuestao);
-        tipoQuestoes = TipoQuestaoDAO.getInstance().buscarTodos(TipoQuestao.class);
+
+    public void gravar() {
+        TipoQuestaoDAO.getInstance().merge(tipoQuestao);
+        tipoQuestoes = TipoQuestaoDAO.getInstance().buscarTodos();
+        tipoQuestao = new TipoQuestao();
     }
-    
-    public void remover(TipoQuestao tipoQuestao){
-        TipoQuestaoDAO.getInstance().remover(TipoQuestao.class, tipoQuestao.getIdTipoQuestao());
-        tipoQuestoes = TipoQuestaoDAO.getInstance().buscarTodos(TipoQuestao.class);
+
+    public void remover(ActionEvent actionEvent) {
+        TipoQuestaoDAO.getInstance().remover(tipoQuestao.getIdTipoQuestao());
+        tipoQuestoes = TipoQuestaoDAO.getInstance().buscarTodos();
+        tipoQuestao = new TipoQuestao();
     }
 
     public TipoQuestao getTipoQuestao() {
@@ -55,5 +59,4 @@ public class TipoQuestaoController implements Serializable{
         this.tipoQuestoes = tipoQuestoes;
     }
 
-    
 }

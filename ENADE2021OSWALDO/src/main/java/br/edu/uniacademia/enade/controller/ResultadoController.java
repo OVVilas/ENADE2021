@@ -26,18 +26,20 @@ public class ResultadoController implements Serializable{
     List<Resultado> resultados = new ArrayList<>();
 
     public ResultadoController() {
-        resultados = ResultadoDAO.getInstance().buscarTodos(Resultado.class);
+        resultados = ResultadoDAO.getInstance().buscarTodos();
         resultado = new Resultado();
     }
 
-    public void gravar(ActionEvent actionEvent) {
-        ResultadoDAO.getInstance().persistir(resultado);
-        resultados = ResultadoDAO.getInstance().buscarTodos(Resultado.class);
+    public void gravar() {
+        ResultadoDAO.getInstance().merge(resultado);
+        resultados = ResultadoDAO.getInstance().buscarTodos();
+        resultado = new Resultado();
     }
 
     public void remover(ActionEvent actionEvent) {
-        ResultadoDAO.getInstance().remover(Resultado.class, resultado.getIdResultado());
-        resultados = ResultadoDAO.getInstance().buscarTodos(Resultado.class);
+        ResultadoDAO.getInstance().remover(resultado.getIdResultado());
+        resultados = ResultadoDAO.getInstance().buscarTodos();
+        resultado = new Resultado();
     }
 
     public Resultado getResultado() {

@@ -11,13 +11,18 @@ import br.edu.uniacademia.enade.model.Prova;
  *
  * @author Oswaldo
  */
-public class ProvaDAO extends GenericDAO<Prova>{ 
-public static ProvaDAO provaDAO;
-    
-    public static ProvaDAO getInstance(){
-        if(provaDAO == null){
-            provaDAO = new ProvaDAO();
+public class ProvaDAO extends GenericDAO<Prova, Integer> {
+    public static ProvaDAO ProvaDAO;
+
+    public static ProvaDAO getInstance() {
+        if (ProvaDAO == null) {
+            ProvaDAO = new ProvaDAO();
         }
-        return provaDAO;
-    }  
+        return ProvaDAO;
+    }
+
+    public ProvaDAO() {
+        super(Prova.class);
+    }
+
 }

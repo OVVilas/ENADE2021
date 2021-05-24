@@ -11,16 +11,19 @@ import br.edu.uniacademia.enade.model.TipoQuestao;
  *
  * @author Oswaldo
  */
-public class TipoQuestaoDAO extends GenericDAO<TipoQuestao>{
-    
-   public static TipoQuestaoDAO tipoQuestaoDAO;
-    
-    public static TipoQuestaoDAO getInstance(){
-        if(tipoQuestaoDAO == null){
+public class TipoQuestaoDAO extends GenericDAO<TipoQuestao, Integer> {
+
+    public static TipoQuestaoDAO tipoQuestaoDAO;
+
+    public TipoQuestaoDAO() {
+        super(TipoQuestao.class);
+    }
+
+    public static TipoQuestaoDAO getInstance() {
+        if (tipoQuestaoDAO == null) {
             tipoQuestaoDAO = new TipoQuestaoDAO();
         }
         return tipoQuestaoDAO;
     }
-}
 
-    
+}

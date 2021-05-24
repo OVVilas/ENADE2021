@@ -12,6 +12,7 @@ C:\Users\Pichau\Documents\NetBeansProjects\ENADE2021OSWALDO\src\main\java\br\edu
 C:\Users\Pichau\Documents\NetBeansProjects\ENADE2021OSWALDO\src\main\java\br\edu\uniacademia\enade\dao\TipoQuestaoDAO.java
 C:\Users\Pichau\Documents\NetBeansProjects\ENADE2021OSWALDO\src\main\java\br\edu\uniacademia\enade\controller\UsuarioController.java
 C:\Users\Pichau\Documents\NetBeansProjects\ENADE2021OSWALDO\src\main\java\br\edu\uniacademia\enade\model\Prova.java
+C:\Users\Pichau\Documents\NetBeansProjects\ENADE2021OSWALDO\src\main\java\br\edu\uniacademia\enade\converter\tipoQuestaoConverter.java
 C:\Users\Pichau\Documents\NetBeansProjects\ENADE2021OSWALDO\src\main\java\br\edu\uniacademia\enade\model\Usuario.java
 C:\Users\Pichau\Documents\NetBeansProjects\ENADE2021OSWALDO\src\main\java\br\edu\uniacademia\enade\dao\TipoUsuarioDAO.java
 C:\Users\Pichau\Documents\NetBeansProjects\ENADE2021OSWALDO\src\main\java\br\edu\uniacademia\enade\resources\TipoUsuarioResource.java
@@ -23,6 +24,7 @@ C:\Users\Pichau\Documents\NetBeansProjects\ENADE2021OSWALDO\src\main\java\br\edu
 C:\Users\Pichau\Documents\NetBeansProjects\ENADE2021OSWALDO\src\main\java\br\edu\uniacademia\enade\model\Questao.java
 C:\Users\Pichau\Documents\NetBeansProjects\ENADE2021OSWALDO\src\main\java\br\edu\uniacademia\enade\util\PersistenceUtil.java
 C:\Users\Pichau\Documents\NetBeansProjects\ENADE2021OSWALDO\src\main\java\br\edu\uniacademia\enade\model\Resultado.java
+C:\Users\Pichau\Documents\NetBeansProjects\ENADE2021OSWALDO\src\main\java\br\edu\uniacademia\enade\converter\tipoUsuarioConverter.java
 C:\Users\Pichau\Documents\NetBeansProjects\ENADE2021OSWALDO\src\main\java\br\edu\uniacademia\enade\dao\ResultadoDAO.java
 C:\Users\Pichau\Documents\NetBeansProjects\ENADE2021OSWALDO\src\main\java\br\edu\uniacademia\enade\resources\TipoQuestaoResource.java
 C:\Users\Pichau\Documents\NetBeansProjects\ENADE2021OSWALDO\src\main\java\br\edu\uniacademia\enade\controller\TipoUsuarioController.java

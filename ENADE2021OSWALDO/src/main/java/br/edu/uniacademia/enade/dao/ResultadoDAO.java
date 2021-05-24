@@ -11,14 +11,19 @@ import br.edu.uniacademia.enade.model.Resultado;
  *
  * @author Oswaldo
  */
-public class ResultadoDAO extends GenericDAO<Resultado>{
-    
-public static ResultadoDAO resultadoDAO;
-    
-    public static ResultadoDAO getInstance(){
-        if(resultadoDAO == null){
+public class ResultadoDAO extends GenericDAO<Resultado, Integer> {
+
+    public static ResultadoDAO resultadoDAO;
+
+    public ResultadoDAO() {
+        super(Resultado.class);
+    }
+
+    public static ResultadoDAO getInstance() {
+        if (resultadoDAO == null) {
             resultadoDAO = new ResultadoDAO();
         }
         return resultadoDAO;
     }
+
 }
