@@ -10,6 +10,8 @@ import java.io.Serializable;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import javax.persistence.NoResultException;
+import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 
@@ -80,6 +82,16 @@ public abstract class GenericDAO<T, I extends Serializable> {
         } catch (Exception e) {
             t.rollback();
         }
+    }
+    
+    public Object buscarResultadoUnico(Query query) {
+        Object resultado;
+        try {
+            resultado = query.setMaxResults(1).getSingleResult();
+        } catch (NoResultException ignored) {
+            resultado = null;
+        }
+        return resultado;
     }
 
 }

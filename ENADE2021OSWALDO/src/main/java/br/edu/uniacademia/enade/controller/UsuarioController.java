@@ -6,13 +6,17 @@
 package br.edu.uniacademia.enade.controller;
 
 import br.edu.uniacademia.enade.dao.UsuarioDAO;
+import br.edu.uniacademia.enade.model.TipoUsuario;
 import br.edu.uniacademia.enade.model.Usuario;
 import java.awt.event.ActionEvent;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
+import org.primefaces.event.RowEditEvent;
 
 /**
  *
@@ -32,9 +36,10 @@ public class UsuarioController implements Serializable{
     }
 
     public void gravar() {
-        UsuarioDAO.getInstance().merge(usuario);
-        usuarios = UsuarioDAO.getInstance().buscarTodos();
-        usuario = new Usuario();
+        //UsuarioDAO.getInstance().merge(usuario);
+        //usuarios = UsuarioDAO.getInstance().buscarTodos();
+        //usuario = new Usuario();
+        salvarUsuario(usuario, true);
     }
 
     public void remover(ActionEvent actionEvent) {
@@ -42,7 +47,37 @@ public class UsuarioController implements Serializable{
         usuarios = UsuarioDAO.getInstance().buscarTodos();
         usuario = new Usuario();
     }
+    
+    public Usuario salvarUsuario(Usuario u, boolean buscarUsuarios) {
+        //u.setSenha(EncryptUtil.encrypt(u.getSenha()));
+        u.setSenha(u.getSenha());
+        if (u.getTipoUsuarioidTipoUsuario() == null) {
+            TipoUsuario tipoUsuario = new TipoUsuario();
+            tipoUsuario.setIdTipoUsuario(1);
+            tipoUsuario.setNomeTipoUsuario("Aluno");
+            u.setTipoUsuarioidTipoUsuario(tipoUsuario);
+        }
+        Usuario usuarioPersisted = UsuarioDAO.getInstance().merge(u);
+        if (buscarUsuarios) {
+            usuarios = UsuarioDAO.getInstance().buscarTodos();
+            usuario = new Usuario();
+        }
+        return usuarioPersisted;
+    }
 
+    public void onRowEdit(RowEditEvent event) {
+        Usuario obj = (Usuario) event.getObject();
+        setUsuario(obj);
+        gravar();
+        FacesMessage msg = new FacesMessage("Gravado", obj.toString());
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+    }
+
+    public void onRowCancel(RowEditEvent<Usuario> event) {
+        FacesMessage msg = new FacesMessage("Cancelado", event.getObject().toString());
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+    }
+    
     public Usuario getUsuario() {
         return usuario;
     }

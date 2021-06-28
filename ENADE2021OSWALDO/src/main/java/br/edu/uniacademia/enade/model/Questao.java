@@ -19,6 +19,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -73,12 +74,14 @@ public class Questao implements Serializable {
     @Column(name = "questaoCorreta")
     private Character questaoCorreta;
     @Column(name = "estadoQuestao")
-    private Short estadoQuestao;
+    private boolean estadoQuestao;
     @ManyToMany(mappedBy = "questaoList")
     private List<Prova> provaList;
     @JoinColumn(name = "TipoQuestao_idTipoQuestao", referencedColumnName = "idTipoQuestao")
     @ManyToOne(optional = false)
     private TipoQuestao tipoQuestaoidTipoQuestao;
+    @Transient
+    private String resposta;
 
     public Questao() {
     }
@@ -156,11 +159,11 @@ public class Questao implements Serializable {
         this.questaoCorreta = questaoCorreta;
     }
 
-    public Short getEstadoQuestao() {
+    public boolean getEstadoQuestao() {
         return estadoQuestao;
     }
 
-    public void setEstadoQuestao(Short estadoQuestao) {
+    public void setEstadoQuestao(boolean estadoQuestao) {
         this.estadoQuestao = estadoQuestao;
     }
 
@@ -181,6 +184,14 @@ public class Questao implements Serializable {
         this.tipoQuestaoidTipoQuestao = tipoQuestaoidTipoQuestao;
     }
 
+    public String getResposta() {
+        return resposta;
+    }
+
+    public void setResposta(String resposta) {
+        this.resposta = resposta;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 0;

@@ -6,6 +6,7 @@
 package br.edu.uniacademia.enade.dao;
 
 import br.edu.uniacademia.enade.model.Questao;
+import java.util.List;
 
 /**
  *
@@ -26,4 +27,7 @@ public class QuestaoDAO extends GenericDAO<Questao, Integer> {
         return questaoDAO;
     }
 
+    public List<Questao> buscarQuestoesAtivas() {
+        return entityManager.createNamedQuery("Questao.findByEstadoQuestao", Questao.class).setParameter("estadoQuestao", true).getResultList();
+    }
 }

@@ -6,6 +6,7 @@
 package br.edu.uniacademia.enade.model;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
@@ -82,6 +83,11 @@ public class Prova implements Serializable {
 
     public Date getDataProva() {
         return dataProva;
+    }
+    
+    public String getDataProvaFormat() {
+        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+        return formato.format(dataProva);
     }
 
     public void setDataProva(Date dataProva) {

@@ -6,6 +6,7 @@
 package br.edu.uniacademia.enade.dao;
 
 import br.edu.uniacademia.enade.model.Prova;
+import java.util.Date;
 
 /**
  *
@@ -19,6 +20,15 @@ public class ProvaDAO extends GenericDAO<Prova, Integer> {
             ProvaDAO = new ProvaDAO();
         }
         return ProvaDAO;
+    }
+    
+    public Prova buscarUltimaProvaAtiva(Integer idAluno) {
+    final String jpql = " SELECT p FROM Prova p "
+            + " LEFT JOIN p.resultadoList r "
+            + " WHERE p.dataProva >= :dataProva AND (r.usuarioidUsuario IS NULL OR r.usuarioidUsuario.idUsuario <> :idAluno)";
+    return (Prova) buscarResultadoUnico(entityManager.createQuery(jpql)
+            .setParameter("dataProva", new Date())
+            .setParameter("idAluno", idAluno));
     }
 
     public ProvaDAO() {

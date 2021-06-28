@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="5" failures="0" name="ProvaResourceTest" time="0.014" errors="0" skipped="0">
+<testsuite tests="5" failures="0" name="ProvaResourceTest" time="0.016" errors="0" skipped="0">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk1.8.0_251\jre\bin"/>
@@ -30,7 +30,7 @@
     <property name="maven.ext.class.path" value="C:\Program Files\NetBeans-11.3\netbeans\java\maven-nblib\netbeans-eventspy.jar"/>
     <property name="classworlds.conf" value="C:\Program Files\NetBeans-11.3\netbeans\java\maven\bin\m2.conf"/>
     <property name="sun.jnu.encoding" value="Cp1252"/>
-    <property name="java.library.path" value="C:\Program Files\Java\jdk1.8.0_251\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;C:\Python39\Scripts\;C:\Python39\;C:\Python38\Scripts\;C:\Python38\;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files\Process Lasso\;C:\ProgramData\chocolatey\bin;C:\Program Files\VSCodium\bin;C:\Strawberry\c\bin;C:\Strawberry\perl\site\bin;C:\Strawberry\perl\bin;C:\Program Files\Git\cmd;C:\Users\Pichau\Desktop\Tools\Dev\apache-maven-3.8.1\bin;;C:\Program Files\Docker\Docker\resources\bin;C:\ProgramData\DockerDesktop\version-bin;C:\Program Files\nodejs\;C:\Users\Pichau\AppData\Local\Microsoft\WindowsApps;C:\Users\Pichau\AppData\Roaming\npm;."/>
+    <property name="java.library.path" value="C:\Program Files\Java\jdk1.8.0_251\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;C:\Python39\Scripts\;C:\Python39\;C:\Python38\Scripts\;C:\Python38\;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files\Process Lasso\;C:\ProgramData\chocolatey\bin;C:\Program Files\VSCodium\bin;C:\Strawberry\c\bin;C:\Strawberry\perl\site\bin;C:\Strawberry\perl\bin;C:\Program Files\Git\cmd;C:\Users\Pichau\Desktop\Tools\Dev\apache-maven-3.8.1\bin;;C:\Program Files\nodejs\;C:\Program Files\dotnet\;C:\Program Files (x86)\dotnet\;C:\Program Files\Docker\Docker\resources\bin;C:\ProgramData\DockerDesktop\version-bin;C:\Users\Pichau\AppData\Local\Microsoft\WindowsApps;C:\Users\Pichau\AppData\Roaming\npm;C:\Users\Pichau\.dotnet\tools;."/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
     <property name="java.class.version" value="52.0"/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
@@ -62,9 +62,9 @@
     <property name="sun.desktop" value="windows"/>
     <property name="sun.cpu.isalist" value="amd64"/>
   </properties>
-  <testcase classname="ProvaResourceTest" name="ProvaResourceTest.testAlterar" time="0.014"/>
-  <testcase classname="ProvaResourceTest" name="ProvaResourceTest.testExcluirTodos" time="0"/>
-  <testcase classname="ProvaResourceTest" name="ProvaResourceTest.testExcluir" time="0"/>
+  <testcase classname="ProvaResourceTest" name="ProvaResourceTest.testTodosProva" time="0.015"/>
+  <testcase classname="ProvaResourceTest" name="ProvaResourceTest.testAlterar" time="0.001"/>
   <testcase classname="ProvaResourceTest" name="ProvaResourceTest.testGetProva" time="0"/>
-  <testcase classname="ProvaResourceTest" name="ProvaResourceTest.testTodosProva" time="0"/>
+  <testcase classname="ProvaResourceTest" name="ProvaResourceTest.testExcluir" time="0"/>
+  <testcase classname="ProvaResourceTest" name="ProvaResourceTest.testExcluirTodos" time="0"/>
 </testsuite>

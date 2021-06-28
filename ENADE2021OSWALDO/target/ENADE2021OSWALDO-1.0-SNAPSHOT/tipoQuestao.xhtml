@@ -96,7 +96,7 @@
             <h:form>
                 Você tem certeza?
                 <p:commandButton value="Deletar"  
-                                 actionListener="#{tipoQuestaoController.remover}" onclick="remove.hide()" alt="Delete" /> 
+                                 actionListener="#{tipoQuestaoController.remover(actionEvent)}" onclick="remove.hide()" alt="Delete" /> 
             </h:form>
         </p:dialog>
 

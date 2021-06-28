@@ -35,38 +35,70 @@
                     </p:column>
 
                     <p:column headerText="Nome" sortBy="#{valor.descricaoQuestao}" filterBy="#{valor.descricaoQuestao}">
-
-                        <h:outputText value="#{valor.descricaoQuestao}" />
+                            <p:cellEditor>
+                                <f:facet name="output"><h:outputText value="#{valor.descricaoQuestao}" /></f:facet>
+                                <f:facet name="input"><p:inputText value="#{valor.descricaoQuestao}" style="width:100%"/></f:facet>
+                            </p:cellEditor>
                     </p:column>
 
                     <p:column headerText="Alternativa A" sortBy="#{valor.alternativaA}" filterBy="#{valor.alternativaA}">
-
-                        <h:outputText value="#{valor.alternativaA}" />
+                            <p:cellEditor>
+                                <f:facet name="output"><h:outputText value="#{valor.alternativaA}" /></f:facet>
+                                <f:facet name="input"><p:inputText value="#{valor.alternativaA}" style="width:100%"/></f:facet>
+                            </p:cellEditor>
                     </p:column>
 
                     <p:column headerText="Alternativa B" sortBy="#{valor.alternativaB}" filterBy="#{valor.alternativaB}">
-
-                        <h:outputText value="#{valor.alternativaB}" />
+                        <p:cellEditor>
+                            <f:facet name="output"><h:outputText value="#{valor.alternativaB}" /></f:facet>
+                            <f:facet name="input"><p:inputText value="#{valor.alternativaB}" style="width:100%"/></f:facet>
+                        </p:cellEditor>
                     </p:column>
 
                     <p:column headerText="Alternativa C" sortBy="#{valor.alternativaC}" filterBy="#{valor.alternativaC}">
-                        <h:outputText value="#{valor.alternativaC}" />
+                        <p:cellEditor>
+                            <f:facet name="output"><h:outputText value="#{valor.alternativaC}" /></f:facet>
+                            <f:facet name="input"><p:inputText value="#{valor.alternativaC}" style="width:100%"/></f:facet>
+                        </p:cellEditor>
                     </p:column>
 
                     <p:column headerText="Alternativa D" sortBy="#{valor.alternativaD}" filterBy="#{valor.alternativaD}">
-                        <h:outputText value="#{valor.alternativaD}" />
+                        <p:cellEditor>
+                            <f:facet name="output"><h:outputText value="#{valor.alternativaD}" /></f:facet>
+                            <f:facet name="input"><p:inputText value="#{valor.alternativaD}" style="width:100%"/></f:facet>
+                        </p:cellEditor>
                     </p:column>
 
                     <p:column headerText="Alternativa E" sortBy="#{valor.alternativaE}" filterBy="#{valor.alternativaE}">
-                        <h:outputText value="#{valor.alternativaE}" />
+                        <p:cellEditor>
+                            <f:facet name="output"><h:outputText value="#{valor.alternativaE}" /></f:facet>
+                            <f:facet name="input"><p:inputText value="#{valor.alternativaE}" style="width:100%"/></f:facet>
+                        </p:cellEditor>
                     </p:column>
 
                     <p:column headerText="Alternativa Correta" sortBy="#{valor.questaoCorreta}" filterBy="#{valor.questaoCorreta}">
-                        <h:outputText value="#{valor.questaoCorreta}" />
+                        <p:cellEditor>
+                            <f:facet name="output"><h:outputText value="#{valor.questaoCorreta}" /></f:facet>
+                            <f:facet name="input"><p:inputText value="#{valor.questaoCorreta}" maxlength="1" style="width:100%"/></f:facet>
+                        </p:cellEditor>
                     </p:column>
 
                     <p:column headerText="Tipo Questão" sortBy="#{valor.tipoQuestaoidTipoQuestao.nomeTipoQuestao}" filterBy="#{valor.tipoQuestaoidTipoQuestao.nomeTipoQuestao}">
-                        <h:outputText value="#{valor.tipoQuestaoidTipoQuestao.nomeTipoQuestao}" />
+                        <p:cellEditor>
+                            <f:facet name="output"><h:outputText value="#{valor.tipoQuestaoidTipoQuestao.nomeTipoQuestao}" /></f:facet>
+                            <f:facet name="input">
+                                <p:selectOneMenu value="#{valor.tipoQuestaoidTipoQuestao}" converter="tipoquestaoConverter" style="width: 80%">
+                                    <f:selectItems value="#{tipoQuestaoController.tipoQuestoes}" var="respname" itemLabel="#{respname.nomeTipoQuestao}" itemValue="#{respname}" />
+                                </p:selectOneMenu>
+                            </f:facet>
+                        </p:cellEditor>
+                    </p:column>
+                    
+                    <p:column headerText="Ativa" sortBy="#{valor.estadoQuestao}" filterBy="#{valor.estadoQuestao}">
+                        <p:cellEditor>
+                            <f:facet name="output"><h:outputText value="#{valor.estadoQuestao ? 'Sim' : 'Não'}" /></f:facet>
+                            <f:facet name="input"><p:selectBooleanCheckbox value="#{valor.estadoQuestao}" style="width:100%; text-align: center;"/></f:facet>
+                        </p:cellEditor>
                     </p:column>
 
                     <p:column headerText="Opções" exportable="false">
@@ -93,28 +125,28 @@
 
                     <h:commandLink id="excel">
                         <p:graphicImage name="imagens/exports/excel.png" />
-                        <p:dataExporter type="xls" target="tabelaTQ" fileName="export"/>
+                        <p:dataExporter type="xls" target=":form:tabelaTQ" fileName="export"/>
                     </h:commandLink>
 
                     <h:commandLink id="xlsx">
                         <p:graphicImage name="imagens/exports/excelN.png" width="2%" />
-                        <p:dataExporter type="xlsxstream" target="tabelaTQ" fileName="export"/>
+                        <p:dataExporter type="xlsxstream" target=":form:tabelaTQ" fileName="export"/>
                     </h:commandLink>
 
                     <h:commandLink id="pdf">
                         <p:graphicImage name="imagens/exports/pdf.png" />
-                        <p:dataExporter type="pdf" target="tabelaTQ" fileName="export" />
+                        <p:dataExporter type="pdf" target=":form:tabelaTQ" fileName="export" />
                     </h:commandLink>
 
 
                     <h:commandLink>
                         <p:graphicImage name="imagens/exports/csv.png" width="24"/>
-                        <p:dataExporter type="csv" target="tabelaTQ" fileName="export" />
+                        <p:dataExporter type="csv" target=":form:tabelaTQ" fileName="export" />
                     </h:commandLink>
 
                     <h:commandLink>
                         <p:graphicImage  name="imagens/exports/xml.png" width="24"/>
-                        <p:dataExporter type="xml" target="tabelaTQ" fileName="export" />
+                        <p:dataExporter type="xml" target=":form:tabelaTQ" fileName="export" />
                     </h:commandLink>
                 </div>
             </h:form>
@@ -156,7 +188,7 @@
                 <h:form>
                     Você tem certeza?
                     <p:commandButton value="Deletar"  
-                                     actionListener="#{questaoController.remover}" onclick="remove.hide()" alt="Delete" /> 
+                                     actionListener="#{questaoController.remover(actionEvent)}" onclick="remove.hide()" alt="Delete" /> 
                 </h:form>
             </p:dialog>
 

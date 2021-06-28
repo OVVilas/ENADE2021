@@ -6,6 +6,7 @@
 package br.edu.uniacademia.enade.dao;
 
 import br.edu.uniacademia.enade.model.Usuario;
+import java.util.List;
 
 /**
  *
@@ -25,5 +26,19 @@ public class UsuarioDAO extends GenericDAO<Usuario, Integer> {
         }
         return UsuarioDAO;
     }
-
+    
+    public Usuario logIn(Usuario usuario) {
+        return (Usuario) buscarResultadoUnico(entityManager.createNamedQuery("Usuario.findByEmailAndSenha")
+                .setParameter("email", usuario.getEmail())
+                .setParameter("senha", usuario.getSenha()));
+    }
+    
+    public Usuario buscarPorEmail(Usuario usuario) {
+        return (Usuario) buscarResultadoUnico(entityManager.createNamedQuery("Usuario.findByEmail")
+                .setParameter("email", usuario.getEmail()));
+    }
+    
+    public List<Usuario> buscarTodosAlunos() {
+        return entityManager.createNamedQuery("Usuario.findAllAlunos").getResultList();
+    }
 }

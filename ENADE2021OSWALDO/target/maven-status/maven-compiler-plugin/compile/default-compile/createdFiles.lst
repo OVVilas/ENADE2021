@@ -7,6 +7,7 @@ br\edu\uniacademia\enade\controller\QuestaoController.class
 br\edu\uniacademia\enade\controller\TipoUsuarioController.class
 br\edu\uniacademia\enade\model\Resultado_.class
 br\edu\uniacademia\enade\controller\TipoQuestaoController.class
+br\edu\uniacademia\enade\controller\GraficoController.class
 br\edu\uniacademia\enade\dao\TipoQuestaoDAO.class
 br\edu\uniacademia\enade\model\Usuario.class
 br\edu\uniacademia\enade\model\Usuario_.class
@@ -22,6 +23,7 @@ br\edu\uniacademia\enade\resources\UsuarioResource.class
 br\edu\uniacademia\enade\dao\UsuarioDAO.class
 br\edu\uniacademia\enade\converter\tipoQuestaoConverter.class
 br\edu\uniacademia\enade\model\BaseEnt.class
+br\edu\uniacademia\enade\controller\LoginController.class
 br\edu\uniacademia\enade\model\Prova_.class
 br\edu\uniacademia\enade\controller\ProvaController.class
 br\edu\uniacademia\enade\controller\UsuarioController.class
@@ -34,3 +36,4 @@ br\edu\uniacademia\enade\model\Resultado.class
 br\edu\uniacademia\enade\converter\tipoUsuarioConverter.class
 br\edu\uniacademia\enade\resources\TipoQuestaoResource.class
 br\edu\uniacademia\enade\model\TipoQuestao.class
+br\edu\uniacademia\enade\controller\FazerProvaController.class

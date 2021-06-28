@@ -6,6 +6,7 @@
 package br.edu.uniacademia.enade.dao;
 
 import br.edu.uniacademia.enade.model.Resultado;
+import java.util.List;
 
 /**
  *
@@ -17,6 +18,10 @@ public class ResultadoDAO extends GenericDAO<Resultado, Integer> {
 
     public ResultadoDAO() {
         super(Resultado.class);
+    }
+    
+    public List<Resultado> buscarUltimosDezResultados() {
+        return entityManager.createQuery("from Resultado r ORDER BY r.idResultado DESC", Resultado.class).setMaxResults(10).getResultList();
     }
 
     public static ResultadoDAO getInstance() {
