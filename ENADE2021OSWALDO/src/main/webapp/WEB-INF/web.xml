@@ -21,5 +21,8 @@
     <welcome-file-list>
         <welcome-file>login.xhtml</welcome-file>
     </welcome-file-list>
+    <error-page>
+        <location>/naoEncontrado.xhtml</location>
+    </error-page>
     
 </web-app>
